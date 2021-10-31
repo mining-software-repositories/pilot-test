@@ -5,6 +5,7 @@ from threading import Thread
 import time
 import datetime
 from pydriller import Repository
+from collections import Counter
 
 def display(msg):
     threadname = threading.current_thread().name
@@ -34,3 +35,15 @@ def dictionaryWithAllCommmits(client, repository):
     delta = t2 - t1
     display(f'Dicionário gerado com sucesso em {delta} s')
     return dictionaryAux
+
+# Return a Counter with frequency of each file analysed
+# The Counter like this:
+# Counter({file1: frequency of file1, file2: frequence of file2, ...})
+def counterWithFrequencyOfFile2(dictionaryCommits):
+  listFull = []
+  for key, value in dictionaryCommits.items():
+    listAxu = []
+    listAxu = value
+    for eachItem in listAxu:
+      listFull.append(eachItem)
+  return Counter(listFull)

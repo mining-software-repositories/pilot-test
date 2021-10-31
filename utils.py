@@ -1,4 +1,7 @@
 from pydriller import Repository
+import entities
+import dao
+import itertools
 
 # Analyze single commit
 def commit_detailed_from_repository(my_commit, my_repository):
@@ -50,3 +53,184 @@ def list_modified_files_from_commit(my_commit, my_repository):
         for m in commit.modified_files:
             list_temp.append(m)
     return list_temp
+
+def load_tags_from_repository(path_file='dados/tags-cassandra.txt'):
+    list_aux = []
+    with open(path_file, mode='r+', encoding='utf-8') as file:
+        for line in file:
+            list_aux.append(line.rstrip())
+    return list_aux
+
+def generate_dictionary_commits_and_modifield_java_files(list_commits_from_tags, git_repository):
+    dictionary = {}
+    lista_aux = []
+    for commit in list_commits_from_tags:
+        for m in list_modified_files_from_commit(commit.hash, git_repository):
+            mf = entities.MyModifiedFile(m)
+            name = mf.get_filename()
+            if '.java' in name:
+                lista_aux.append(name)
+        dictionary[commit.hash] = lista_aux
+        lista_aux = []
+    return dictionary
+
+def create_file_from_dictionary(file_name, dictionary):
+    try:
+        linha = ''
+        with open(file_name, mode='w+', encoding='utf8') as f:
+            for key, value in dictionary.items():
+                linha = key + ':' + ','.join(value)
+                f.write(linha)
+                f.write('\n')
+                linha = ''
+        print(f'File: {file_name} created successfully')
+    except Exception as e:
+        print(f'Error during creation of file {e}')
+
+def save_commits_and_modifield_files_in_db(dictionary_commits, commitsCollection, filesCollections):
+    try:
+        for key, value in dictionary_commits.items():
+            commit = dao.Commit(name=key)
+            commitsCollection.insert_commit(commit)
+            for each in value:
+                my_file = dao.File(name=each, hash=key, commit_id=commit.id)
+                filesCollections.insert_file(my_file)
+        print(f'Data saved successfully!')
+    except Exception as e:
+        print(f'Error during save files in DB: {e}')
+
+def generate_modifield_files_with_commits(lista_de_arquivos_e_commits):
+    dicionario_files_com_commits = {}
+    lista_conjunto_arquivos = []
+
+    for each in lista_de_arquivos_e_commits:
+        lista_conjunto_arquivos.append(each.name)
+
+    conjunto_arquivos = set(lista_conjunto_arquivos)
+
+    lista_temp = list(conjunto_arquivos)
+    lista_temp = sorted(lista_temp)
+
+    lista_files_modificados = lista_temp
+
+    for each in lista_files_modificados:
+        lista_aux = []
+        for item in lista_de_arquivos_e_commits:
+            if each == item.name:
+                lista_aux.append(item.hash)
+        dicionario_files_com_commits[each] = lista_aux
+
+    return dicionario_files_com_commits
+
+def get_size_group_of_commits(dicionario_files_com_commits):
+    lista_tamanho_grupo_commits = []
+
+    for key, value in dicionario_files_com_commits.items():
+        value_to_str = ','.join(value)
+
+        if len(value) > 0:
+            lista_tamanho_grupo_commits.append(len(value))
+    return lista_tamanho_grupo_commits
+
+def findsubsets(s, n):
+    return list(itertools.combinations(s,n) )
+
+# Dada uma lista de n elementos
+# gera seus respectivos subconjuntos variando de 2 a n-2 agrupamentos
+def gera_subconjuntos(lista):
+  conjunto = set(lista)
+  n =  len(conjunto)
+  lista_de_subconjuntos = []
+  lista_de_subconjuntos_temp = []
+
+  print(f'Para o conjunto {conjunto} de {n} elementos. ')
+  print(f' Serão gerados os seguintes subconjuntos: ')
+
+  for i in range(1, (n-2) + 1):
+    print(f'Subconjunto{i} com {i+1} elementos')
+    lista_de_subconjuntos_temp = findsubsets(conjunto, i+1)
+    lista_de_subconjuntos = lista_de_subconjuntos + lista_de_subconjuntos_temp
+
+  print('')
+  print('Lista de subconjuntos final')
+  return lista_de_subconjuntos
+
+# Por questões de performance e análise combinatória 
+#criei uma função que gera subconjunto de até 3 elementos agrupados
+def gera_subconjuntos_ate_3_elementos(lista):
+  conjunto = set(lista)
+  n = len(conjunto)
+  lista_de_subconjuntos = []
+  lista_de_subconjuntos_temp = []
+
+  for i in range(1, 3):
+      lista_de_subconjuntos_temp = findsubsets(conjunto, i+1)
+      lista_de_subconjuntos = lista_de_subconjuntos + lista_de_subconjuntos_temp
+    
+  return lista_de_subconjuntos
+
+def raw_generate_list_of_groups(lista_commits_teste, dicionario_files_com_commits):
+    lista_grupos = []
+    lista_grupo = []
+    i = 0
+    for each_commit in lista_commits_teste:
+        for chave, valor in dicionario_files_com_commits.items():
+            if each_commit in valor:
+                # o commit apareceu no arquivo
+                grupo = 'grupo' + str(i) + ',' + each_commit
+                elemento = (grupo, chave)
+                lista_grupo.append(elemento)
+    i += 1 
+    lista_grupos.append(lista_grupo)
+    # limpa o lista_grupo
+    lista_grupo = []
+
+    return lista_grupos
+
+# Pega os n arquivos mais modificados:
+def get_n_most_modifield_files(n, arquivos_mais_modificados):
+    i = 0
+    pega_n_arquivos_mais_modificados = []
+    for each in arquivos_mais_modificados:
+        if i < n:
+            pega_n_arquivos_mais_modificados.append(each)
+            i += 1
+        else:
+            break
+    return pega_n_arquivos_mais_modificados
+
+def get_names_from_n_most_modifield_files(most_modifield_files):
+    lista_temp = []
+
+    for each in most_modifield_files:
+        lista_temp.append(each[0])
+    return lista_temp 
+
+def generate_list_of_groups_from_commits(lista_subconjuntos, dictionary_commits):
+    lista_grupos = []
+    lista_grupo = []
+    i = 0
+    for tupla_arquivo in lista_subconjuntos:
+        for commit, lista_arquivos_do_commit in dictionary_commits.items():
+            if len(lista_arquivos_do_commit) < 10:
+                lista_subconjunto_arquivos_do_commit = gera_subconjuntos_ate_3_elementos(lista_arquivos_do_commit)
+            if tupla_arquivo in lista_subconjunto_arquivos_do_commit:
+                grupo = 'grupo' + str(i) + f':{tupla_arquivo}'
+                elemento = (grupo, commit)
+                lista_grupo.append(elemento)
+        i += 1
+        lista_grupos.append(lista_grupo)
+        # limpa o lista_grupo
+        lista_grupo = []
+    return lista_grupos
+
+def show_groups_of_most_modifield_files(lista_grupos):
+    lista_de_commits_por_grupo = []
+    for item in lista_grupos:
+        if len(item) > 0:
+            for elemento in item:
+                grupo = elemento[0]
+                commit = elemento[1]
+                lista_de_commits_por_grupo.append(commit)
+            print(f'Lista de Commis do grupo {grupo} : {len(lista_de_commits_por_grupo)} : {lista_de_commits_por_grupo}')
+            lista_de_commits_por_grupo = []
