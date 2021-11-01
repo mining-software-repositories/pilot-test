@@ -2,6 +2,7 @@ from pydriller import Repository
 import entities
 import dao
 import itertools
+import json
 
 # Analyze single commit
 def commit_detailed_from_repository(my_commit, my_repository):
@@ -95,7 +96,7 @@ def save_commits_and_modifield_files_in_db(dictionary_commits, commitsCollection
             for each in value:
                 my_file = dao.File(name=each, hash=key, commit_id=commit.id)
                 filesCollections.insert_file(my_file)
-        print(f'Data saved successfully!')
+        print(f'Commits and Files saved successfully!')
     except Exception as e:
         print(f'Error during save files in DB: {e}')
 
@@ -234,3 +235,91 @@ def show_groups_of_most_modifield_files(lista_grupos):
                 lista_de_commits_por_grupo.append(commit)
             print(f'Lista de Commis do grupo {grupo} : {len(lista_de_commits_por_grupo)} : {lista_de_commits_por_grupo}')
             lista_de_commits_por_grupo = []
+
+def convert_list_to_str(lista):
+    temp = ''
+    if len(lista) > 0:
+        temp = ','.join( str(v) for v in lista)
+    return temp
+
+def convert_modifield_list_to_str(lista):
+    list_aux = []
+    for each in lista:
+        list_aux.append(each.filename)
+    str = convert_list_to_str(list_aux)
+    return str
+
+def convert_method_list_to_str(lista):
+    list_aux = []
+    for each in lista:
+        list_aux.append(each)
+    str = convert_list_to_str(list_aux)
+    return str
+
+def convert_dictionary_to_str(dictionary):
+    temp = ''
+    if len(dictionary) > 0:
+        temp = str(json.dumps(dictionary))
+    return temp
+
+def concat_str(str1, str2):
+    temp = str1 + ',' + str2
+    return temp
+
+def save_complete_commits_and_modifield_files_in_db(lista_commits_entre_tags, commitCompleteCollection, fileCompleteCollection):
+  for commit in lista_commits_entre_tags:
+    c = dao.CommitComplete(name = commit.hash, 
+        hash = commit.hash, 
+        msg = commit.msg,
+        author = concat_str(commit.author.name,commit.author.email), 
+        committer = concat_str(commit.committer.name,commit.committer.email), 
+        author_date = commit.author_date,
+        author_timezone = commit.author_timezone,
+        committer_date = commit.committer_date,
+        committer_timezone = commit.committer_timezone,
+        branches = convert_list_to_str(commit.branches),
+        in_main_branch = commit.in_main_branch,
+        merge = commit.merge,
+        modified_files = convert_modifield_list_to_str(commit.modified_files),
+        parents = convert_list_to_str(commit.parents),
+        project_name = commit.project_name,
+        project_path = commit.project_path,
+        deletions = commit.deletions,
+        insertions = commit.insertions,
+        lines = commit.lines,
+        files = commit.files,
+        dmm_unit_size = commit.dmm_unit_size,
+        dmm_unit_complexity = commit.dmm_unit_complexity,
+        dmm_unit_interfacing = commit.dmm_unit_interfacing)
+    # salva o commit corrente
+    commitCompleteCollection.insert_commit(c)
+    for m in commit.modified_files:
+        if m is not None and  m.filename is not None:
+            mf = dao.FileComplete(
+                name = m.filename,
+                hash = commit.hash,
+                old_path = m.old_path,
+                new_path = m.new_path,
+                filename = m.filename,
+                change_type = m.change_type.name,
+                diff = str(m.diff),
+                diff_parsed = convert_dictionary_to_str(m.diff_parsed),
+                added_lines = m.added_lines,
+                deleted_lines = m.deleted_lines,
+                source_code = str(m.source_code),
+                source_code_before = str(m.source_code_before),
+                methods = convert_list_to_str(m.methods),
+                methods_before = convert_list_to_str(m.methods_before),
+                changed_methods = convert_list_to_str(m.changed_methods),
+                nloc = m.nloc,
+                complexity = m.complexity,
+                token_count = m.token_count, 
+                commit_id = commitCompleteCollection.query_commit_hash(commit.hash)
+            )
+            name = mf.filename
+
+            if '.java' in name:
+            # salva o arquivo correte
+              fileCompleteCollection.insert_file(mf)
+
+
