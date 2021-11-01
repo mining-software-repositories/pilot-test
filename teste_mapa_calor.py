@@ -56,16 +56,16 @@ dicionario_files_com_commits = utils.generate_modifield_files_with_commits(lista
 print(f'{t1}')
 arquivos_mais_modificados = specials.counterWithFrequencyOfFile3(dicionario_commits_com_arquivos_java_modificados)
 arquivos_mais_modificados = arquivos_mais_modificados.most_common()
-pega_10_arquivos_mais_modificados = utils.get_n_most_modifield_files(10, arquivos_mais_modificados)
+pega_100_arquivos_mais_modificados = utils.get_n_most_modifield_files(100, arquivos_mais_modificados)
 
 print('')
-print('Mostra os 10 arquivos mais modificados')
+print('Mostra os 100 arquivos mais modificados')
 print('')
-print(utils.get_names_from_n_most_modifield_files(pega_10_arquivos_mais_modificados))
+print(utils.get_names_from_n_most_modifield_files(pega_100_arquivos_mais_modificados))
 print('')
 
 lista_elementos_arquivos = []
-for each in pega_10_arquivos_mais_modificados:
+for each in pega_100_arquivos_mais_modificados:
     print(each)
     lista_registros_pelo_nome = filesCompleteCollection.query_files_by_name(each[0])
     lista_elementos_arquivos = lista_elementos_arquivos + lista_registros_pelo_nome
@@ -95,6 +95,51 @@ dicionario_lista_10_arquivos_mais_modificados = {'index': lista_aux_index,'name'
 'hash':lista_aux_hash, 'added_lines':lista_aux_added_lines, 
     'deleted_lines':lista_aux_deleted_lines, 'modifications':lista_aux_modifications}
 
+lista_de_commits = dicionario_lista_10_arquivos_mais_modificados['hash']
+lista_de_commits = list(set(lista_de_commits))
+#print(f'lista_de_commits: {len(lista_de_commits)}, {lista_de_commits} ')
+
+lista_de_arquivos_java = dicionario_lista_10_arquivos_mais_modificados['name']
+lista_de_arquivos_java = list(set(lista_de_arquivos_java))
+#print(f'lista_de_arquivos_java: {len(lista_de_arquivos_java)}, {lista_de_arquivos_java}')
+
+lista_aux = []
+for commit in lista_de_commits:
+    for file in lista_de_arquivos_java:
+        temp = filesCompleteCollection.query_files_by_name(file)
+        find = False
+        for item in temp:
+            if commit == item.hash:
+                elemento = (commit, file, item.added_lines, item.deleted_lines)
+                find = True
+        if find == False: 
+            elemento = (commit, file, 0, 0)
+        lista_aux.append(elemento)
+
+dicionario_lista_10_arquivos_mais_modificados = {}
+
+i = 0
+lista_aux_index = []
+lista_aux_name = []
+lista_aux_hash = []
+lista_aux_added_lines = []
+lista_aux_deleted_lines = []
+lista_aux_modifications = []
+
+for each in lista_aux:
+    lista_aux_index.append(i)
+    lista_aux_hash.append(each[0])
+    lista_aux_name.append(each[1])
+    lista_aux_added_lines.append(each[2])
+    lista_aux_deleted_lines.append(each[3])
+    modifications = each[2] + each[3]
+    lista_aux_modifications.append(modifications)
+    i += 1
+
+dicionario_lista_10_arquivos_mais_modificados = {'index': lista_aux_index,'name':lista_aux_name, 
+'hash':lista_aux_hash, 'added_lines':lista_aux_added_lines, 
+    'deleted_lines':lista_aux_deleted_lines, 'modifications':lista_aux_modifications}
+
 pd.set_option('display.max_rows', None)
 df_arquivos_mais_modificados = pd.DataFrame.from_dict(dicionario_lista_10_arquivos_mais_modificados)
 
@@ -104,4 +149,15 @@ print(df_arquivos_mais_modificados.sort_values(by=['hash'], ascending=True))
 t2 = datetime.datetime.now()
 print(f'Hora: {t2}')
 delta = t2 - t1
-print(f'Tempo de análise dos arquivos mais modificados: {delta}')
+print(f'Tempo3 de análise dos arquivos mais modificados: {delta}')
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+##df_flights = pd.read_csv('flights.csv')
+##flights = df_flights.pivot("month", "year", "passengers")
+##sns.heatmap(flights)
+##plt.show()
+
+df_commits = df_arquivos_mais_modificados.pivot('name', 'hash', 'modifications')
+sns.heatmap(df_commits)
+plt.show()

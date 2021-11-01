@@ -116,6 +116,9 @@ class FilesCollection():
     def query_file_name(self, name):
         return self.session.query(File).filter(File.name==name).first()
 
+    def query_files_by_name(self, name):
+        return self.session.query(File).filter(File.name==name).all()
+
     def query_files_by_commit_id(self, commit_id):
         return self.session.query(File).filter(File.commit_id==commit_id).all()
     
@@ -194,6 +197,10 @@ class FilesCompleteCollection():
     def query_all_files(self):
         files = self.session.query(FileComplete).all()
         return files
+
+    def query_files_by_name(self, name):
+        return self.session.query(FileComplete).filter(FileComplete.name==name).all()
+
 
 # Cria a sessao com o banco 
 def create_session():

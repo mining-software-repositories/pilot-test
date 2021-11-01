@@ -47,3 +47,15 @@ def counterWithFrequencyOfFile2(dictionaryCommits):
     for eachItem in listAxu:
       listFull.append(eachItem)
   return Counter(listFull)
+
+# Return a Counter with frequency of each file analysed
+# The Counter like this:
+# Counter({file1: frequency of file1, file2: frequence of file2, ...})
+def counterWithFrequencyOfFile3(dictionaryCommits):
+  listFull = []
+  for key, value in dictionaryCommits.items():
+    listAxu = []
+    listAxu = value.split(',')
+    for eachItem in listAxu:
+      listFull.append(eachItem)
+  return Counter(listFull)
