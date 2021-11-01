@@ -3,6 +3,11 @@ import entities
 import dao
 import itertools
 import json
+import threading
+import multiprocessing
+import logging
+
+logging.basicConfig(format='%(levelname)s - %(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S', level=logging.INFO)
 
 # Analyze single commit
 def commit_detailed_from_repository(my_commit, my_repository):
@@ -293,6 +298,7 @@ def save_complete_commits_and_modifield_files_in_db(lista_commits_entre_tags, co
         dmm_unit_interfacing = commit.dmm_unit_interfacing)
     # salva o commit corrente
     commitCompleteCollection.insert_commit(c)
+    display(f'Save commit {c.hash}')
     for m in commit.modified_files:
         if m is not None and  m.filename is not None:
             mf = dao.FileComplete(
@@ -321,5 +327,9 @@ def save_complete_commits_and_modifield_files_in_db(lista_commits_entre_tags, co
             if '.java' in name:
             # salva o arquivo correte
               fileCompleteCollection.insert_file(mf)
+              display(f'Save file {mf.name}')
 
-
+def display(msg):
+    threadname = threading.current_thread().name
+    processname = multiprocessing.current_process().name
+    logging.info(f'{processname}\{threadname}: {msg}')

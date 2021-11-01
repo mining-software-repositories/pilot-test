@@ -155,6 +155,10 @@ class CommitsCompleteCollection():
     def query_commit_hash(self, hash):
         return self.session.query(CommitComplete).filter(CommitComplete.hash==hash).first().id
 
+    def query_all_commits(self):
+        commits = self.session.query(CommitComplete).all()
+        return commits
+
 class FilesCompleteCollection():
     def __init__(self, session):
         self.session = session
@@ -165,7 +169,7 @@ class FilesCompleteCollection():
             self.session.commit()
         except Exception as e:
             print('Erro during insert file: {e}')
-            #self.session.rollback()
+            self.session.rollback()
     
     def query_file_id(self, id):
         return self.session.query(FileComplete).filter(FileComplete.id==id).first()
