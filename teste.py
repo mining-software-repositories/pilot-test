@@ -5,7 +5,7 @@ import datetime
 from threading import Thread
 import config
 
-CREATE_DATA_BASE = True
+CREATE_DATA_BASE = False
 
 os.system('clear')
 
