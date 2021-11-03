@@ -394,3 +394,16 @@ def create_file_by_list(file_name, lista):
         print(f'File: {file_name} created successfully')
     except Exception as e:
         print(f'Error during creation of file {e}')
+
+def create_file_by_list_of_commits(file_name, lista):
+    try:
+        linha = ''
+        with open(file_name, mode='w+', encoding='utf8') as f:
+            for each in lista:
+                linha = str(each.hash)
+                f.write(linha)
+                f.write('\n')
+                linha = ''
+        print(f'File: {file_name} created successfully')
+    except Exception as e:
+        print(f'Error during creation of file {e}')

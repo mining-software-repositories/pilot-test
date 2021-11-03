@@ -158,9 +158,19 @@ class CommitsCompleteCollection():
     def query_commit_hash(self, hash):
         return self.session.query(CommitComplete).filter(CommitComplete.hash==hash).first().id
 
+    def query_commit_by_hash(self, hash):
+        return self.session.query(CommitComplete).filter(CommitComplete.hash==hash).first()
+
     def query_all_commits(self):
         commits = self.session.query(CommitComplete).all()
         return commits
+
+    def query_commits_from_list(self, list_of_commits):
+        list_temp = []
+        for each in list_of_commits:
+            item = self.query_commit_by_hash(each.hash)
+            list_temp.append(item)
+        return list_temp
 
 class FilesCompleteCollection():
     def __init__(self, session):

@@ -8,7 +8,7 @@ import specials
 import pandas as pd
 
 CREATE_DATA_BASE = False
-SHOW_LIST_OF_ANALYSED_COMMIT = False
+SHOW_LIST_OF_ANALYSED_COMMIT = True
 
 t1 = datetime.datetime.now()
 
@@ -20,6 +20,8 @@ if SHOW_LIST_OF_ANALYSED_COMMIT:
     lista_commits_entre_tags = utils.list_commits_between_tags(from_tag=config.tag1, to_tag=config.tag2, my_repository=config.repositorio_git_cassandra) 
     print(f'Para as tags: {config.tag1} e {config.tag2} é feita uma análise dos {len(lista_commits_entre_tags)} commits \
 e para cada commit é guardada uma lista de arquivos modificados nesse commit.')
+file_name = config.path_arquivos_modificados + '/' + f'lista_commits_entre_tags_{config.tag1}_{config.tag2}.txt'
+utils.create_file_by_list_of_commits(file_name, lista_commits_entre_tags)
 
 print(f'Configura e carrega o banco {dao.data_base}...')
 if CREATE_DATA_BASE:
@@ -47,7 +49,7 @@ print('Aguarde...')
 t1 = datetime.datetime.now()
 # Carrega um dicionario contendo os commits e seus arquivos modificados
 dicionario_commits_com_arquivos_java_modificados = {}
-all_commits_analysed = commitsCompleteCollection.query_all_commits()
+all_commits_analysed = commitsCompleteCollection.query_commits_from_list(lista_commits_entre_tags)
 
 for commit in all_commits_analysed:
     dicionario_commits_com_arquivos_java_modificados[commit.hash] = commit.modified_files
