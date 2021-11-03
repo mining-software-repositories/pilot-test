@@ -10,10 +10,11 @@ import pandas as pd
 CREATE_DATA_BASE = False
 SHOW_LIST_OF_ANALYSED_COMMIT = False
 
+t1 = datetime.datetime.now()
+
 os.system('clear')
 
-t1 = datetime.datetime.now()
-print(f'Analise do Cassandra: {t1} do intervalo de {config.tag1} até {config.tag2} \n')
+print(f'Analise do Repositório de Código do Cassandra: intervalo de {config.tag1} até {config.tag2} - Data: {t1}\n')
 
 if SHOW_LIST_OF_ANALYSED_COMMIT:
     lista_commits_entre_tags = utils.list_commits_between_tags(from_tag=config.tag1, to_tag=config.tag2, my_repository=config.repositorio_git_cassandra) 
@@ -44,64 +45,56 @@ else:
 
 print('Aguarde...')
 t1 = datetime.datetime.now()
+# Carrega um dicionario contendo os commits e seus arquivos modificados
 dicionario_commits_com_arquivos_java_modificados = {}
 all_commits_analysed = commitsCompleteCollection.query_all_commits()
+
 for commit in all_commits_analysed:
     dicionario_commits_com_arquivos_java_modificados[commit.hash] = commit.modified_files
 
+# Carrega um dicionario contendo os arquivos e os commits onde eles apareceram
 dicionario_files_com_commits = {}
 lista_de_arquivos_e_commits = filesCompleteCollection.query_all_files()
 dicionario_files_com_commits = utils.generate_modifield_files_with_commits(lista_de_arquivos_e_commits)
 
-print(f'{t1}')
+# Carrega em uma lista os arquivos mais modificados dentro da faixa de commits analisados
 arquivos_mais_modificados = specials.counterWithFrequencyOfFile3(dicionario_commits_com_arquivos_java_modificados)
 arquivos_mais_modificados = arquivos_mais_modificados.most_common()
-pega_10_arquivos_mais_modificados = utils.get_n_most_modifield_files(10, arquivos_mais_modificados)
+pega_100_arquivos_mais_modificados = utils.get_n_most_modifield_files(100, arquivos_mais_modificados)
 
 print('')
-print('Mostra os 10 arquivos mais modificados')
+print(f'Mostra os 100 arquivos mais modificados entre as tags: {config.tag1} e {config.tag2}')
 print('')
-print(utils.get_names_from_n_most_modifield_files(pega_10_arquivos_mais_modificados))
+print(utils.get_names_from_n_most_modifield_files(pega_100_arquivos_mais_modificados))
+print('')
+
+file_name =  config.path_arquivos_modificados + '/' + 'pega_100_arquivos_mais_modificados.txt'
+utils.create_file_by_list(file_name, utils.get_names_and_counts_from_n_most_modifield_files(pega_100_arquivos_mais_modificados))
 print('')
 
 lista_elementos_arquivos = []
-for each in pega_10_arquivos_mais_modificados:
-    print(each)
+for each in pega_100_arquivos_mais_modificados:
     lista_registros_pelo_nome = filesCompleteCollection.query_files_by_name(each[0])
     lista_elementos_arquivos = lista_elementos_arquivos + lista_registros_pelo_nome
 
-# Cria um dictionary para representar os detalhes mais importantes dos 100 arquivos mais modificados
-dicionario_lista_10_arquivos_mais_modificados = {}
+# Cria um dictionary para representar os detalhes (nome, commits, quantidade de modificações em LOC) mais importantes dos 100 arquivos mais modificados
+dicionario_lista_100_arquivos_mais_modificados = utils.gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos)
 
-i = 0
-lista_aux_index = []
-lista_aux_name = []
-lista_aux_hash = []
-lista_aux_added_lines = []
-lista_aux_deleted_lines = []
-lista_aux_modifications = []
-
-for each in lista_elementos_arquivos:
-    lista_aux_index.append(i)
-    lista_aux_name.append(each.name)
-    lista_aux_hash.append(each.hash)
-    lista_aux_added_lines.append(each.added_lines)
-    lista_aux_deleted_lines.append(each.deleted_lines)
-    modifications = each.added_lines + each.deleted_lines
-    lista_aux_modifications.append(modifications)
-    i += 1
-
-dicionario_lista_10_arquivos_mais_modificados = {'index': lista_aux_index,'name':lista_aux_name, 
-'hash':lista_aux_hash, 'added_lines':lista_aux_added_lines, 
-    'deleted_lines':lista_aux_deleted_lines, 'modifications':lista_aux_modifications}
-
+# Cria um dataframe dos 100 arquivos mais modificados
 pd.set_option('display.max_rows', None)
-df_arquivos_mais_modificados = pd.DataFrame.from_dict(dicionario_lista_10_arquivos_mais_modificados)
+df_100_arquivos_mais_modificados = pd.DataFrame.from_dict(dicionario_lista_100_arquivos_mais_modificados)
+print(f'Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados')
+print(df_100_arquivos_mais_modificados[['name', 'hash', 'nloc', 'complexity', 'modifications']].sort_values(by=['hash'], ascending=True).head(10))
+print('')
 
-print(df_arquivos_mais_modificados.sort_values(by=['hash'], ascending=True))
-## select name, hash, added_lines, deleted_lines , (added_lines + deleted_lines) as modfications from filescomplete where name='UserType.java' or  name='LeveledManifest.java' order by name, hash
+try:
+    file_name = config.path_arquivos_modificados + '/' + 'df_100_arquivos_mais_modificados.csv'
+    df_100_arquivos_mais_modificados.to_csv(file_name, sep=',', encoding='utf-8')
+    print(f'Arquivo {file_name} exportado com sucesso!')
+except Exception as e:
+    print('Erro ao tentar exportar arquivo {file_name}: {e}')
 
 t2 = datetime.datetime.now()
 print(f'Hora: {t2}')
 delta = t2 - t1
-print(f'Tempo de análise dos arquivos mais modificados: {delta}')
+print(f'Tempo de análise dos 100 arquivos mais modificados: {delta} para as tags {config.tag1}  e {config.tag2}')

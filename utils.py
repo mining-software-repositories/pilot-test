@@ -333,3 +333,64 @@ def display(msg):
     threadname = threading.current_thread().name
     processname = multiprocessing.current_process().name
     logging.info(f'{processname}\{threadname}: {msg}')
+
+def gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos):
+    dicionario_lista_arquivos_mais_modificados = {}
+
+    i = 0
+    lista_aux_index = []
+    lista_aux_name = []
+    lista_aux_hash = []
+    lista_aux_added_lines = []
+    lista_aux_deleted_lines = []
+    lista_aux_modifications = []
+    lista_aux_old_path = []
+    lista_aux_new_path = []
+    lista_aux_change_type = []
+    lista_aux_nloc = []
+    lista_aux_complexity = []
+
+    for each in lista_elementos_arquivos:
+        lista_aux_index.append(i)
+        lista_aux_name.append(each.name)
+        lista_aux_hash.append(each.hash)
+        lista_aux_old_path.append(each.old_path)
+        lista_aux_new_path.append(each.new_path)
+        lista_aux_change_type.append(each.change_type)
+        lista_aux_nloc.append(each.nloc)
+        lista_aux_complexity.append(each.complexity)
+        lista_aux_added_lines.append(each.added_lines)
+        lista_aux_deleted_lines.append(each.deleted_lines)
+        modifications = each.added_lines + each.deleted_lines
+        lista_aux_modifications.append(modifications)
+        i += 1
+
+    dicionario_lista_arquivos_mais_modificados = {'index': lista_aux_index,'name':lista_aux_name, 
+    'hash':lista_aux_hash, 'added_lines':lista_aux_added_lines, 
+        'deleted_lines':lista_aux_deleted_lines, 'modifications':lista_aux_modifications, 
+        'old_path': lista_aux_old_path, 'new_path': lista_aux_new_path, 
+        'change_type': lista_aux_change_type,  'nloc': lista_aux_nloc, 'complexity': lista_aux_complexity}
+
+    return dicionario_lista_arquivos_mais_modificados
+
+def get_names_and_counts_from_n_most_modifield_files(most_modifield_files):
+    lista_temp = []
+
+    for each in most_modifield_files:
+        elemento = ( str(each[0]), str(each[1]) )
+        elemento = ','.join(elemento)
+        lista_temp.append( elemento ) 
+    return lista_temp 
+
+def create_file_by_list(file_name, lista):
+    try:
+        linha = ''
+        with open(file_name, mode='w+', encoding='utf8') as f:
+            for each in lista:
+                linha = each
+                f.write(linha)
+                f.write('\n')
+                linha = ''
+        print(f'File: {file_name} created successfully')
+    except Exception as e:
+        print(f'Error during creation of file {e}')
