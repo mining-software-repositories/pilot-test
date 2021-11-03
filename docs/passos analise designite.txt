@@ -1,0 +1,16 @@
+Testes com as versões 3.1.0 e 3.2.0 
+
+1. Download da tag 3.1.0 e 3.2.0 (extrair pasta src)
+https://github.com/apache/cassandra/releases/tag/
+
+2. Download dos arquivos compilados de 3.1.0 e 3.2.0 (extrair arquivos compilados .class)
+
+3. Criar uma pasta que agrupe os arquivos src (fonte) e bin (classes)
+
+4. Fazer a análise de cada uma das versões
+
+java -jar DesigniteJava.jar -i /Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-1-0/src -o resultados-3-1-0 -c /Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-1-0/bin
+
+java -jar DesigniteJava.jar -i /Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-2-0/src -o resultados-3-2-0 -c /Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-2-0/bin
+
+5. Tabular os resultados encontrados para Architectural Smells, Design Smels e Implementation Smells
