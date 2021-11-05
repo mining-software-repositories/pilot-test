@@ -12,18 +12,18 @@ Mostra os 100 arquivos mais modificados entre as tags: cassandra-3.0.0 e cassand
 File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0/pega_100_arquivos_mais_modificados.txt created successfully
 
 Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados
-                         name                                      hash  nloc  complexity  modifications
-51             NodeProbe.java  05300b26e7918a2c329f902ed0022680f981a3ab  1143         248             15
-154    ThreadPoolMetrics.java  05300b26e7918a2c329f902ed0022680f981a3ab   117          14             31
-156              TpStats.java  05300b26e7918a2c329f902ed0022680f981a3ab    29           3             23
-158         StatusLogger.java  05300b26e7918a2c329f902ed0022680f981a3ab    74           7             15
-120  ActiveRepairService.java  1538c0921444d7969ebd07ca1abda9a7e40e4c73   367          56             17
-142               Schema.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4   353          65              4
-9         StorageService.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4  3319         710             19
-14     ColumnFamilyStore.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4  2230         438              4
-113     CqlNativeStorage.java  177f607057a9d4c4b3746cec51e8e283938a5363   914         228              4
-111      CqlRecordWriter.java  177f607057a9d4c4b3746cec51e8e283938a5363   367          72             96
+                         name                                      hash                date  nloc  complexity  modifications
+51             NodeProbe.java  05300b26e7918a2c329f902ed0022680f981a3ab 2015-12-04 13:10:20  1143         248             15
+154    ThreadPoolMetrics.java  05300b26e7918a2c329f902ed0022680f981a3ab 2015-12-04 13:10:20   117          14             31
+156              TpStats.java  05300b26e7918a2c329f902ed0022680f981a3ab 2015-12-04 13:10:20    29           3             23
+158         StatusLogger.java  05300b26e7918a2c329f902ed0022680f981a3ab 2015-12-04 13:10:20    74           7             15
+120  ActiveRepairService.java  1538c0921444d7969ebd07ca1abda9a7e40e4c73 2015-12-02 08:41:11   367          56             17
+142               Schema.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4 2015-11-25 16:45:02   353          65              4
+9         StorageService.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4 2015-11-25 16:45:02  3319         710             19
+14     ColumnFamilyStore.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4 2015-11-25 16:45:02  2230         438              4
+113     CqlNativeStorage.java  177f607057a9d4c4b3746cec51e8e283938a5363 2015-11-10 14:32:55   914         228              4
+111      CqlRecordWriter.java  177f607057a9d4c4b3746cec51e8e283938a5363 2015-11-10 14:32:55   367          72             96
 
 Arquivo /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0/df_100_arquivos_mais_modificados.csv exportado com sucesso!
-Hora: 2021-11-05 11:49:26.085203
-Tempo de análise dos 100 arquivos mais modificados: 0:01:11.177799 para as tags cassandra-3.0.0  e cassandra-3.1
+Hora: 2021-11-05 13:29:41.103561
+Tempo de análise dos 100 arquivos mais modificados: 0:01:18.394813 para as tags cassandra-3.0.0  e cassandra-3.1

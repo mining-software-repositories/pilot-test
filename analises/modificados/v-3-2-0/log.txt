@@ -12,18 +12,18 @@ Mostra os 100 arquivos mais modificados entre as tags: cassandra-3.1 e cassandra
 File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0/pega_100_arquivos_mais_modificados.txt created successfully
 
 Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados
-                           name                                      hash  nloc  complexity  modifications
-66        CassandraVersion.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   154          49              6
-197         CassandraIndex.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   623         111              7
-99       CommitLogReplayer.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   557          99              2
-19      DatabaseDescriptor.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  1586         408              6
-11          StorageService.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  3364         726              4
-54              CFMetaData.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  1051         238              9
-5        CompactionManager.java  0d51b65e32bd2c6343d7a07314e0c88256c73bf0  1204         187              6
-84     SSTableRewriterTest.java  0e63000c3fd0029e5b620a7923ea2ac54771e8e9   757          78            165
-23            StorageProxy.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9  1915         338              2
-72   ModificationStatement.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9   645         119              9
+                           name                                      hash                date  nloc  complexity  modifications
+66        CassandraVersion.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44   154          49              6
+197         CassandraIndex.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44   623         111              7
+99       CommitLogReplayer.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44   557          99              2
+19      DatabaseDescriptor.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44  1586         408              6
+11          StorageService.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44  3364         726              4
+54              CFMetaData.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d 2016-01-04 22:33:44  1051         238              9
+5        CompactionManager.java  0d51b65e32bd2c6343d7a07314e0c88256c73bf0 2015-12-09 13:09:33  1204         187              6
+84     SSTableRewriterTest.java  0e63000c3fd0029e5b620a7923ea2ac54771e8e9 2015-12-18 20:33:21   757          78            165
+23            StorageProxy.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9 2015-12-18 09:14:57  1915         338              2
+72   ModificationStatement.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9 2015-12-18 09:14:57   645         119              9
 
 Arquivo /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0/df_100_arquivos_mais_modificados.csv exportado com sucesso!
-Hora: 2021-11-05 12:06:27.663534
-Tempo de análise dos 100 arquivos mais modificados: 0:02:58.075998 para as tags cassandra-3.1  e cassandra-3.2
+Hora: 2021-11-05 13:36:51.263427
+Tempo de análise dos 100 arquivos mais modificados: 0:03:04.732716 para as tags cassandra-3.1  e cassandra-3.2

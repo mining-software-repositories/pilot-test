@@ -81,13 +81,13 @@ for each in pega_100_arquivos_mais_modificados:
             lista_100_elementos_arquivos.append(each_name)
 
 # Cria um dictionary para representar os detalhes (nome, commits, quantidade de modificações em LOC) mais importantes dos 100 arquivos mais modificados
-dicionario_lista_100_arquivos_mais_modificados = utils.gera_dicionario_lista_arquivos_mais_modificados(lista_100_elementos_arquivos)
+dicionario_lista_100_arquivos_mais_modificados = utils.gera_dicionario_lista_arquivos_mais_modificados(lista_100_elementos_arquivos, commitsCompleteCollection)
 
 # Cria um dataframe com detalhes dos 100 arquivos mais modificados
 pd.set_option('display.max_rows', None)
 df_100_arquivos_mais_modificados = pd.DataFrame.from_dict(dicionario_lista_100_arquivos_mais_modificados)
 print(f'Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados')
-print(df_100_arquivos_mais_modificados[['name', 'hash', 'nloc', 'complexity', 'modifications']].sort_values(by=['hash'], ascending=True).head(10))
+print(df_100_arquivos_mais_modificados[['name', 'hash', 'date', 'nloc', 'complexity', 'modifications']].sort_values(by=['hash'], ascending=True).head(10))
 print('')
 
 try:

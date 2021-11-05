@@ -334,13 +334,14 @@ def display(msg):
     processname = multiprocessing.current_process().name
     logging.info(f'{processname}\{threadname}: {msg}')
 
-def gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos):
+def gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos, commitsCompleteCollection):
     dicionario_lista_arquivos_mais_modificados = {}
 
     i = 0
     lista_aux_index = []
     lista_aux_name = []
     lista_aux_hash = []
+    lista_aux_date_commit = []
     lista_aux_added_lines = []
     lista_aux_deleted_lines = []
     lista_aux_modifications = []
@@ -354,6 +355,8 @@ def gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos):
         lista_aux_index.append(i)
         lista_aux_name.append(each.name)
         lista_aux_hash.append(each.hash)
+        date_commit = commitsCompleteCollection.query_date_from_commit_by_hash(each.hash)
+        lista_aux_date_commit.append(date_commit)
         lista_aux_old_path.append(each.old_path)
         lista_aux_new_path.append(each.new_path)
         lista_aux_change_type.append(each.change_type)
@@ -366,7 +369,7 @@ def gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos):
         i += 1
 
     dicionario_lista_arquivos_mais_modificados = {'index': lista_aux_index,'name':lista_aux_name, 
-    'hash':lista_aux_hash, 'added_lines':lista_aux_added_lines, 
+    'hash':lista_aux_hash, 'date': lista_aux_date_commit, 'added_lines':lista_aux_added_lines, 
         'deleted_lines':lista_aux_deleted_lines, 'modifications':lista_aux_modifications, 
         'old_path': lista_aux_old_path, 'new_path': lista_aux_new_path, 
         'change_type': lista_aux_change_type,  'nloc': lista_aux_nloc, 'complexity': lista_aux_complexity}

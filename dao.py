@@ -172,6 +172,9 @@ class CommitsCompleteCollection():
             list_temp.append(item)
         return list_temp
 
+    def query_date_from_commit_by_hash(self, hash):
+        return self.session.query(CommitComplete).filter(CommitComplete.hash==hash).first().author_date
+
 class FilesCompleteCollection():
     def __init__(self, session):
         self.session = session
