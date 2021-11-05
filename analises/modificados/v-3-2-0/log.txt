@@ -1,0 +1,29 @@
+Para as tags: cassandra-3.1 e cassandra-3.2 é feita uma análise dos 779 commits e para cada commit é guardada uma lista de arquivos modificados nesse commit.
+File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0/lista_commits_entre_tags_cassandra-3.1_cassandra-3.2.txt created successfully
+Configura e carrega o banco testecassandra.db...
+Banco testecassandra.db carregado com sucesso! 
+
+Aguarde...
+
+Mostra os 100 arquivos mais modificados entre as tags: cassandra-3.1 e cassandra-3.2
+
+['', 'CHANGES.txt', 'NEWS.txt', 'copyutil.py', 'CompactionManager.java', 'cqlsh.py', 'StorageService.java', 'DatabaseDescriptor.java', 'StorageProxy.java', 'BatchStatement.java', 'Index.java', 'build.xml', 'SSTableReader.java', 'Config.java', 'ColumnFamilyStore.java', 'ma-1-big-Data.db', 'ma-1-big-Digest.crc32', 'ma-1-big-Statistics.db', 'ma-1-big-TOC.txt', 'CFMetaData.java', 'MessageDeliveryTask.java', 'MessagingService.java', 'CQL.textile', 'cqlsh', 'CassandraVersion.java', 'cassandra-env.sh', 'cqlshrc.sample', 'formatting.py', 'cassandra-stress.bat', 'CipherFactoryTest.java', 'ModificationStatement.java', 'ReadCommand.java', 'View.java', 'SimpleSSTableMultiWriter.java', 'SSTableRewriterTest.java', 'StressGraph.java', 'AggregateFcts.java', 'CastFcts.java', 'AggregationTest.java', 'CommitLogReplayer.java', 'ViewTest.java', 'CqlInputFormat.java', 'cassandra.yaml', 'StorageServiceMBean.java', 'cassandra-env.ps1', 'ClientWarningsTest.java', 'CipherFactory.java', 'JKSKeyProvider.java', 'Util.java', 'RangeTombstoneList.java', 'ByteBufferUtil.java', 'PartitionUpdate.java', 'ma-1-big-CompressionInfo.db', 'CassandraDaemon.java', 'TimeFcts.java', 'SelectStatement.java', 'ClientState.java', 'UUIDGen.java', 'ReadCommandVerbHandler.java', 'ReadExecutionController.java', 'SinglePartitionReadCommand.java', 'SinglePartitionSliceCommand.java', 'CompositesSearcher.java', 'IncomingTcpConnection.java', 'MultiPartitionPager.java', 'FBUtilities.java', 'ReadCommandTest.java', 'Memtable.java', 'SystemKeyspace.java', 'Scrubber.java', 'Upgrader.java', 'CompactionAwareWriter.java', 'ChecksummedDataInput.java', 'HintsReader.java', 'HintsWriteExecutor.java', 'HintsWriter.java', 'SSTableTxnWriter.java', 'StreamReader.java', 'CompressedStreamReader.java', 'RealTransactionsTest.java', 'Cql.g', 'CastFctsTest.java', 'NetworkTopologyStrategy.java', 'TokenMetadata.java', 'CompactionStrategyManager.java', 'DefaultCompactionWriter.java', 'MajorLeveledCompactionWriter.java', 'MaxSSTableSizeWriter.java', 'SplittingSizeTieredCompactionWriter.java', 'ScrubTest.java', 'CassandraIndex.java', 'PrimaryKeyRestrictionSet.java', 'TableMetrics.java', 'changelog', 'cassandra', 'ConfigHelper.java', 'cassandra.install', 'OperationType.java', 'NodeProbe.java', 'Lists.java']
+
+File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0/pega_100_arquivos_mais_modificados.txt created successfully
+
+Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados
+                           name                                      hash  nloc  complexity  modifications
+66        CassandraVersion.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   154          49              6
+197         CassandraIndex.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   623         111              7
+99       CommitLogReplayer.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d   557          99              2
+19      DatabaseDescriptor.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  1586         408              6
+11          StorageService.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  3364         726              4
+54              CFMetaData.java  01d26dd3fc35a6b22a538f75545b0d9b739ee48d  1051         238              9
+5        CompactionManager.java  0d51b65e32bd2c6343d7a07314e0c88256c73bf0  1204         187              6
+84     SSTableRewriterTest.java  0e63000c3fd0029e5b620a7923ea2ac54771e8e9   757          78            165
+23            StorageProxy.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9  1915         338              2
+72   ModificationStatement.java  0f5e780781ce3f0cb3732515dacc7e467571a7c9   645         119              9
+
+Arquivo /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0/df_100_arquivos_mais_modificados.csv exportado com sucesso!
+Hora: 2021-11-05 12:06:27.663534
+Tempo de análise dos 100 arquivos mais modificados: 0:02:58.075998 para as tags cassandra-3.1  e cassandra-3.2
