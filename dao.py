@@ -211,6 +211,12 @@ class FilesCompleteCollection():
     def query_files_by_name(self, name):
         return self.session.query(FileComplete).filter(FileComplete.name==name).all()
 
+    def query_files_from_list_of_commits(self, list_of_commits):
+        list_files = []
+        for commit in list_of_commits:
+            files = self.query_files_by_commit_name(commit.hash)
+            list_files = list_files + files
+        return list_files
 
 # Cria a sessao com o banco 
 def create_session():

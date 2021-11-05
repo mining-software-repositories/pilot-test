@@ -1,0 +1,29 @@
+Para as tags: cassandra-3.0.0 e cassandra-3.1 é feita uma análise dos 320 commits e para cada commit é guardada uma lista de arquivos modificados nesse commit.
+File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0/lista_commits_entre_tags_cassandra-3.0.0_cassandra-3.1.txt created successfully
+Configura e carrega o banco testecassandra.db...
+Banco testecassandra.db carregado com sucesso! 
+
+Aguarde...
+
+Mostra os 100 arquivos mais modificados entre as tags: cassandra-3.0.0 e cassandra-3.1
+
+['', 'CHANGES.txt', 'build.xml', 'StorageService.java', 'NEWS.txt', 'ColumnFamilyStore.java', 'Gossiper.java', 'RowCacheTest.java', 'StorageProxy.java', 'changelog', 'CompactionManager.java', 'SSTableRewriter.java', 'StreamReader.java', 'NodeProbe.java', 'SecondaryIndexManager.java', 'SecondaryIndexTest.java', 'cqlsh', 'MigrationManager.java', 'cqlsh.py', 'SystemKeyspace.java', 'CompactionController.java', 'AbstractColumnFamilyInputFormat.java', 'EndpointState.java', 'FailureDetector.java', 'VersionedValue.java', 'EndpointStateTest.java', 'CloudstackSnitchTest.java', 'EC2SnitchTest.java', 'GoogleCloudSnitchTest.java', 'StreamReceiveTask.java', 'CompressionMetadata.java', 'CQLTester.java', 'cql3handling.py', 'QueryProcessor.java', 'CompactionsPurgeTest.java', 'CQLSSTableWriterTest.java', 'CqlRecordWriter.java', 'CqlNativeStorage.java', 'StorageServiceMBean.java', 'AlterTest.java', 'ActiveRepairService.java', 'AlterTableStatement.java', 'CompressedInputStreamTest.java', 'formatting.py', 'CompressedStreamReader.java', 'KeysSearcher.java', 'Json.java', 'QueryOptions.java', 'DropTypeStatement.java', 'CassandraIndexTest.java', 'PropertyFileSnitch.java', 'YamlFileNetworkTopologySnitch.java', 'helptopics.py', 'Schema.java', 'cassandra-driver-internal-only-3.0.0-6af642d.zip', 'test_cqlsh_completion.py', 'test_cqlsh_output.py', 'BufferedDataOutputStreamPlus.java', 'DataOutputBuffer.java', 'DataOutputBufferFixed.java', 'SafeMemoryWriter.java', 'DataOutputTest.java', 'ThreadPoolMetrics.java', 'TpStats.java', 'StatusLogger.java', 'CASClientRequestMetrics.java', 'CassandraMetricsRegistry.java', 'EstimatedHistogramReservoir.java', 'KeyspaceMetrics.java', 'EstimatedHistogram.java', 'EstimatedHistogramTest.java', 'CassandraDaemon.java', 'StartupChecks.java', 'JavaSourceUDFFactory.java', 'MessagingService.java', 'CQLSSTableWriter.java', 'README.txt', 'AuditTrigger.properties', 'AuditTrigger.java', 'CLibrary.java', 'CLibraryTest.java', 'Bounds.java', 'CounterCacheTest.java', 'BoundsTest.java', 'NodeTool.java', 'SimpleDateType.java', 'HintedHandOffManager.java', 'HintedHandOffTest.java', 'LogFile.java', 'LogTransaction.java', 'CustomIndexTest.java', 'AggregationTest.java', 'StorageServiceServerTest.java', 'RepairOption.java', 'RepairOptionTest.java', 'SchemaLoader.java', 'RandomAccessReader.java', 'FileMessageHeader.java', 'IncomingFileMessage.java', 'OutgoingFileMessage.java']
+
+File: /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0/pega_100_arquivos_mais_modificados.txt created successfully
+
+Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados
+                         name                                      hash  nloc  complexity  modifications
+51             NodeProbe.java  05300b26e7918a2c329f902ed0022680f981a3ab  1143         248             15
+154    ThreadPoolMetrics.java  05300b26e7918a2c329f902ed0022680f981a3ab   117          14             31
+156              TpStats.java  05300b26e7918a2c329f902ed0022680f981a3ab    29           3             23
+158         StatusLogger.java  05300b26e7918a2c329f902ed0022680f981a3ab    74           7             15
+120  ActiveRepairService.java  1538c0921444d7969ebd07ca1abda9a7e40e4c73   367          56             17
+142               Schema.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4   353          65              4
+9         StorageService.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4  3319         710             19
+14     ColumnFamilyStore.java  15f03ab446854cf4d2999c3785d145c89bc3a3e4  2230         438              4
+113     CqlNativeStorage.java  177f607057a9d4c4b3746cec51e8e283938a5363   914         228              4
+111      CqlRecordWriter.java  177f607057a9d4c4b3746cec51e8e283938a5363   367          72             96
+
+Arquivo /Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0/df_100_arquivos_mais_modificados.csv exportado com sucesso!
+Hora: 2021-11-05 11:49:26.085203
+Tempo de análise dos 100 arquivos mais modificados: 0:01:11.177799 para as tags cassandra-3.0.0  e cassandra-3.1

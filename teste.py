@@ -56,7 +56,7 @@ for commit in all_commits_analysed:
 
 # Carrega um dicionario contendo os arquivos e os commits onde eles apareceram
 dicionario_files_com_commits = {}
-lista_de_arquivos_e_commits = filesCompleteCollection.query_all_files()
+lista_de_arquivos_e_commits = filesCompleteCollection.query_files_from_list_of_commits(lista_commits_entre_tags)
 dicionario_files_com_commits = utils.generate_modifield_files_with_commits(lista_de_arquivos_e_commits)
 
 # Carrega em uma lista os arquivos mais modificados dentro da faixa de commits analisados
@@ -74,15 +74,16 @@ file_name =  config.path_arquivos_modificados + '/' + 'pega_100_arquivos_mais_mo
 utils.create_file_by_list(file_name, utils.get_names_and_counts_from_n_most_modifield_files(pega_100_arquivos_mais_modificados))
 print('')
 
-lista_elementos_arquivos = []
+lista_100_elementos_arquivos = []
 for each in pega_100_arquivos_mais_modificados:
-    lista_registros_pelo_nome = filesCompleteCollection.query_files_by_name(each[0])
-    lista_elementos_arquivos = lista_elementos_arquivos + lista_registros_pelo_nome
+    for each_name in lista_de_arquivos_e_commits:
+        if each[0] == each_name.name:
+            lista_100_elementos_arquivos.append(each_name)
 
 # Cria um dictionary para representar os detalhes (nome, commits, quantidade de modificações em LOC) mais importantes dos 100 arquivos mais modificados
-dicionario_lista_100_arquivos_mais_modificados = utils.gera_dicionario_lista_arquivos_mais_modificados(lista_elementos_arquivos)
+dicionario_lista_100_arquivos_mais_modificados = utils.gera_dicionario_lista_arquivos_mais_modificados(lista_100_elementos_arquivos)
 
-# Cria um dataframe dos 100 arquivos mais modificados
+# Cria um dataframe com detalhes dos 100 arquivos mais modificados
 pd.set_option('display.max_rows', None)
 df_100_arquivos_mais_modificados = pd.DataFrame.from_dict(dicionario_lista_100_arquivos_mais_modificados)
 print(f'Mostra as 10 primeiras linhas do dataframe df_100_arquivos_mais_modificados')
