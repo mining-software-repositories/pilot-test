@@ -48,6 +48,9 @@ print(f'Banco {dao.data_base} carregado com sucesso! \n')
 commitsCollection = dao.CommitsCollection(session=db_session)
 filesCollections = dao.FilesCollection(session=db_session)
 
+commitsCompleteCollection = dao.CommitsCompleteCollection(session=db_session)
+filesCompleteCollection = dao.FilesCompleteCollection(session = db_session)
+
 utils.save_commits_and_modifield_files_in_db(dicionario_commits_com_arquivos_java_modificados, commitsCollection, filesCollections)
 
 lista_de_arquivos_e_commits = filesCollections.query_all_files()
