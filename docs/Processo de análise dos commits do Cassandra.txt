@@ -1,0 +1,15 @@
+Principais etapas do processo da análise dos commits e arquivos do Cassandra
+
+Dado um conjunto de commits de um repositório de software do github:
+
+1. Criei scripts python com o Pydriller para identificar commits e arquivos modificados dentro de uma faixa de commits.
+
+2. Consegui identificar os arquivos mais frequentemente modificados. Baseado na quantidade de vezes que arquivo aparece nos commits.
+
+3. Faz a análise de série temporal de um arquivo para avaliar seu comportamento (modificações, linhas de código e complexidade) ao longo do tempo. 
+
+3. Consegui identificar os arquivos que possuem Architectural Smells do tipo Feature Concentration.
+
+4. Consegui identificar os arquivos que possuem Design Smells dos seguintes tipos: Broken Modularization, Cyclically-dependent modularization, Hub-Like Modularization, Insufficient Modularization.
+
+5. Consegui organizar um dataset de arquivos e commits de forma que pudesse ser usada uma estratégia de agrupamento baseada no K-means clustering. Onde o resultado é um conjunto de arquivos que são alterados juntos em mais de um commit. Mas ao fazer algumas comparações com dados reais do Cassandra vi que alguns conjuntos devem ser descartados, pois não há 100% de acerto. 
