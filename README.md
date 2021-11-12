@@ -6,7 +6,7 @@
 
 ### Scripts de apoio
 
-[main.py](https://github.com/mining-software-repositories/pilot-test/blob/master/main.py) - Cria a estrutura inicial da análise da versão 3.1.0
+[main.py](https://github.com/mining-software-repositories/pilot-test/blob/master/main.py) - Cria a estrutura inicial da análise entre as versões 3.0.0 e 3.1.0
 
 [teste.py](https://github.com/mining-software-repositories/pilot-test/blob/master/teste.py) - Faz a análise do repositório dentro de uma faixa de commits das tags definidas no config.py
 
