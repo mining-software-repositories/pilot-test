@@ -1,7 +1,7 @@
 Testes com as versões 3.1.0 e 3.2.0 
 
 1. Download da tag 3.1.0 e 3.2.0 (extrair pasta src)
-https://github.com/apache/cassandra/releases/tag/
+https://archive.apache.org/dist/cassandra
 
 2. Download dos arquivos compilados de 3.1.0 e 3.2.0 (extrair arquivos compilados .class)
 

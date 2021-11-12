@@ -88,13 +88,13 @@ file_name =  config.path_arquivos_modificados + '/' + 'pega_100_arquivos_mais_mo
 utils.create_file_by_list(file_name, utils.get_names_and_counts_from_n_most_modifield_files(pega_100_arquivos_mais_modificados))
 print('')
 
-pega_20_arquivos_mais_modificados = utils.get_n_most_modifield_files(20, arquivos_mais_modificados)
-pega_nome_20_arquivos_mais_modificados = utils.get_names_from_n_most_modifield_files(pega_20_arquivos_mais_modificados)
+pega_50_arquivos_mais_modificados = utils.get_n_most_modifield_files(50, arquivos_mais_modificados)
+pega_nome_50_arquivos_mais_modificados = utils.get_names_from_n_most_modifield_files(pega_50_arquivos_mais_modificados)
 
 dicionario_df_files_commits = {}
 lista_linha_file = []
 
-for each in pega_nome_20_arquivos_mais_modificados:
+for each in pega_nome_50_arquivos_mais_modificados:
     if ".java" in each:
         for index, row in df_commits.iterrows():
             if each in row['files']:

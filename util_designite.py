@@ -6,6 +6,8 @@ PATH_DESIGNITE_RESULTS_V_3_1_0 = '/Users/armandosoaressousa/git/msr/pilot-test/a
 PATH_ARQUIVOS_MODIFICADOS_V_3_1_0 = '/Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-1-0'
 PATH_DESIGNITE_RESULTS_V_3_2_0 = '/Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-2-0/resultados'
 PATH_ARQUIVOS_MODIFICADOS_V_3_2_0 = '/Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-2-0'
+PATH_DESIGNITE_RESULTS_V_3_11_11 = '/Users/armandosoaressousa/git/msr/pilot-test/analises/designite/v-3-11-11/resultados'
+PATH_ARQUIVOS_MODIFICADOS_V_3_11_11 = '/Users/armandosoaressousa/git/msr/pilot-test/analises/modificados/v-3-11-11'
 
 # Compara os resultados da analise do designite e dos arquivos modificados
 #####  Analise da versao 3.1.0
@@ -64,6 +66,10 @@ def init_df_architecture_smell_analysis(versao):
     
     if versao == '3.1.0':
         df_architecture_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_1_0 + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
+    
+    if versao == '3.11.11':
+        df_architecture_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_11_11 + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
+        
     return df_architecture_smells
 
 def init_df_design_smell_analysis(versao):
@@ -71,6 +77,10 @@ def init_df_design_smell_analysis(versao):
 
     if versao == '3.1.0':
         df_design_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_1_0 + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
+    
+    if versao == '3.11.11':
+        df_design_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_11_11 + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
+    
     return df_design_smells
 
 def init_df_100_arquivos_mais_modificados(versao):
@@ -78,6 +88,10 @@ def init_df_100_arquivos_mais_modificados(versao):
 
     if versao == '3.1.0':
         df_arquivos_modificados = pd.read_csv(filepath_or_buffer=PATH_ARQUIVOS_MODIFICADOS_V_3_1_0 + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
+    
+    if versao == '3.11.11':
+        df_arquivos_modificados = pd.read_csv(filepath_or_buffer=PATH_ARQUIVOS_MODIFICADOS_V_3_11_11 + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
+
     return df_arquivos_modificados
 
 def extract_list_of_architecture_smells(df_architecture_smells, texto_padrao):
