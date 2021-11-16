@@ -14,6 +14,7 @@ PATH_ARQUIVOS_MODIFICADOS_V_3_11_11 = '/Users/armandosoaressousa/git/msr/pilot-t
 ## Arquivos e Pacotes analisados via Designite na versao 3.1.0
 
 dictionary_log_analise_v_3_1_0 = {}
+dictionary_log_analise_v_3_11_11 = {}
 
 dictionary_analysis_summxary_v_3_1_0 = {'Total LOC analyzed':152143, 'Number of packages':75, 'Number of classes':2103, 'Number of methods':20349}
 
@@ -82,6 +83,10 @@ dictionary_log_analise_v_3_1_0['analysis summxary'] = dictionary_analysis_summxa
 dictionary_log_analise_v_3_1_0['architecture smell'] = dictionary_architecture_smell_v_3_1_0
 dictionary_log_analise_v_3_1_0['design smell'] = dictionary_design_smell_v_3_1_0
 dictionary_log_analise_v_3_1_0['implementation_smell'] = dictionary_implementation_smell_v_3_1_0
+
+dictionary_log_analise_v_3_11_11['analysis summary'] = dictionary_analysis_summary_v_3_11_11
+dictionary_log_analise_v_3_11_11['architecture smell'] = dictionary_architecture_smell_v_3_11_11
+dictionary_log_analise_v_3_11_11['design smell'] = dictionary_design_smell_v_3_11_11
 
 ## Architectural Smells
 texto_padrao_Cyclic_Dependency = "The tool detected the smell in this component because this component participates in a cyclic dependency. The participating components in the cycle are:"
