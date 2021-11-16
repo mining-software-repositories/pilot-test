@@ -102,7 +102,7 @@ texto_padrao_Cyclically_dependent_Modularization = "The tool detected the smell 
 texto_padrao_Insufficient_Modularization = "The tool detected the smell in this class becuase the class has bloated interface (large number of public methods)."
 texto_padrao_Hub_like_Modularization = "The tool detected the smell in this class because this class has high number of incoming as well as outgoing dependencies."
 
-def init_df_architecture_smell_analysis(path=None, versao):
+def init_df_architecture_smell_analysis(versao, path=None):
     df_architecture_smells = None
     
     if versao == '3.1.0':
@@ -117,7 +117,7 @@ def init_df_architecture_smell_analysis(path=None, versao):
         
     return df_architecture_smells
 
-def init_df_design_smell_analysis(path=None, versao):
+def init_df_design_smell_analysis(versao, path=None):
     df_design_smells = None
 
     if versao == '3.1.0':
@@ -132,7 +132,7 @@ def init_df_design_smell_analysis(path=None, versao):
     
     return df_design_smells
 
-def init_df_100_arquivos_mais_modificados(path=None, versao):
+def init_df_100_arquivos_mais_modificados(versao, path=None):
     df_arquivos_modificados = None
 
     if versao == '3.1.0':
