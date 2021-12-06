@@ -14,6 +14,7 @@ PATH_ARQUIVOS_MODIFICADOS_V_3_11_11 = '/Users/armandosoaressousa/git/msr/pilot-t
 ## Arquivos e Pacotes analisados via Designite na versao 3.1.0
 
 dictionary_log_analise_v_3_1_0 = {}
+dictionary_log_analise_v_3_11_11 = {}
 
 dictionary_analysis_summxary_v_3_1_0 = {'Total LOC analyzed':152143, 'Number of packages':75, 'Number of classes':2103, 'Number of methods':20349}
 
@@ -42,10 +43,50 @@ dictionary_implementation_smell_v_3_1_0 = {
 	'Magic number': 2415,	'Missing default': 75,
     }
 
+dictionary_analysis_summary_v_3_11_11 = {'Total LOC analyzed': 199133, 'Number of packages': 93,
+	'Number of classes': 2645, 'Number of methods': 26183}
+
+dictionary_architecture_smell_v_3_11_11 = {'Cyclic dependency': 229, 'God component': 32, 
+	'Ambiguous interface': 0, 'Feature concentration': 74, 
+	'Unstable dependency': 47, 'Scattered functionality': 4, 
+	'Dense structure': 1}
+
+dictionary_design_smell_v_3_11_11 = {'Imperative abstraction': 6, 'Multifaceted abstraction': 14, 
+	'Unnecessary abstraction': 22, 'Unutilized abstraction': 1803, 
+	'Feature envy': 0, 'Deficient encapsulation': 684, 
+	'Unexploited encapsulation': 0, 'Broken modularization': 4, 
+	'Cyclically-dependent modularization': 65, 	'Hub-like modularization': 7, 
+	'Insufficient modularization': 227, 'Broken hierarchy': 27,
+	'Cyclic hierarchy': 3, 	'Deep hierarchy': 0,
+	'Missing hierarchy': 0,	'Multipath hierarchy': 0,
+	'Rebellious hierarchy': 2,	'Wide hierarchy': 0}
+
+dictionary_analysis_summary_v_3_11_11 = {'Total LOC analyzed': 199133, 'Number of packages': 93,
+	'Number of classes': 2645, 'Number of methods': 26183}
+
+dictionary_architecture_smell_v_3_11_11 = {'Cyclic dependency': 229, 'God component': 32, 
+	'Ambiguous interface': 0, 'Feature concentration': 74, 
+	'Unstable dependency': 47, 'Scattered functionality': 4, 
+	'Dense structure': 1}
+
+dictionary_design_smell_v_3_11_11 = {'Imperative abstraction': 6, 'Multifaceted abstraction': 14, 
+	'Unnecessary abstraction': 22, 'Unutilized abstraction': 1803, 
+	'Feature envy': 0, 'Deficient encapsulation': 684, 
+	'Unexploited encapsulation': 0, 'Broken modularization': 4, 
+	'Cyclically-dependent modularization': 65, 	'Hub-like modularization': 7, 
+	'Insufficient modularization': 227, 'Broken hierarchy': 27,
+	'Cyclic hierarchy': 3, 	'Deep hierarchy': 0,
+	'Missing hierarchy': 0,	'Multipath hierarchy': 0,
+	'Rebellious hierarchy': 2,	'Wide hierarchy': 0}
+
 dictionary_log_analise_v_3_1_0['analysis summxary'] = dictionary_analysis_summxary_v_3_1_0
 dictionary_log_analise_v_3_1_0['architecture smell'] = dictionary_architecture_smell_v_3_1_0
 dictionary_log_analise_v_3_1_0['design smell'] = dictionary_design_smell_v_3_1_0
 dictionary_log_analise_v_3_1_0['implementation_smell'] = dictionary_implementation_smell_v_3_1_0
+
+dictionary_log_analise_v_3_11_11['analysis summary'] = dictionary_analysis_summary_v_3_11_11
+dictionary_log_analise_v_3_11_11['architecture smell'] = dictionary_architecture_smell_v_3_11_11
+dictionary_log_analise_v_3_11_11['design smell'] = dictionary_design_smell_v_3_11_11
 
 ## Architectural Smells
 texto_padrao_Cyclic_Dependency = "The tool detected the smell in this component because this component participates in a cyclic dependency. The participating components in the cycle are:"
@@ -61,36 +102,48 @@ texto_padrao_Cyclically_dependent_Modularization = "The tool detected the smell 
 texto_padrao_Insufficient_Modularization = "The tool detected the smell in this class becuase the class has bloated interface (large number of public methods)."
 texto_padrao_Hub_like_Modularization = "The tool detected the smell in this class because this class has high number of incoming as well as outgoing dependencies."
 
-def init_df_architecture_smell_analysis(versao):
+def init_df_architecture_smell_analysis(versao, path=None):
     df_architecture_smells = None
     
     if versao == '3.1.0':
-        df_architecture_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_1_0 + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
+        if path is None:
+          path = PATH_DESIGNITE_RESULTS_V_3_1_0
+        df_architecture_smells = pd.read_csv(filepath_or_buffer=path + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
     
     if versao == '3.11.11':
-        df_architecture_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_11_11 + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
+        if path is None:
+          path = PATH_DESIGNITE_RESULTS_V_3_11_11
+        df_architecture_smells = pd.read_csv(filepath_or_buffer=path + '/' + 'ArchitectureSmells.csv', sep=',', encoding='utf-8')
         
     return df_architecture_smells
 
-def init_df_design_smell_analysis(versao):
+def init_df_design_smell_analysis(versao, path=None):
     df_design_smells = None
 
     if versao == '3.1.0':
-        df_design_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_1_0 + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
+        if path is None:
+          path = PATH_DESIGNITE_RESULTS_V_3_1_0
+        df_design_smells = pd.read_csv(filepath_or_buffer=path + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
     
     if versao == '3.11.11':
-        df_design_smells = pd.read_csv(filepath_or_buffer=PATH_DESIGNITE_RESULTS_V_3_11_11 + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
+        if path is None:
+          path = PATH_DESIGNITE_RESULTS_V_3_11_11
+        df_design_smells = pd.read_csv(filepath_or_buffer=path + '/' + 'DesignSmells.csv', sep=',', encoding='utf-8')
     
     return df_design_smells
 
-def init_df_100_arquivos_mais_modificados(versao):
+def init_df_100_arquivos_mais_modificados(versao, path=None):
     df_arquivos_modificados = None
 
     if versao == '3.1.0':
-        df_arquivos_modificados = pd.read_csv(filepath_or_buffer=PATH_ARQUIVOS_MODIFICADOS_V_3_1_0 + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
+      if path is None:
+        path = PATH_ARQUIVOS_MODIFICADOS_V_3_1_0
+      df_arquivos_modificados = pd.read_csv(filepath_or_buffer=path + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
     
     if versao == '3.11.11':
-        df_arquivos_modificados = pd.read_csv(filepath_or_buffer=PATH_ARQUIVOS_MODIFICADOS_V_3_11_11 + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
+      if path is None:
+        path = PATH_ARQUIVOS_MODIFICADOS_V_3_11_11
+      df_arquivos_modificados = pd.read_csv(filepath_or_buffer=path + '/' + 'df_100_arquivos_mais_modificados.csv', sep=',', encoding='utf-8')
 
     return df_arquivos_modificados
 
